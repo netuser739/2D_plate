@@ -26,15 +26,7 @@ namespace Game.TapeBackground
 
 
         public void Move(float value)
-        {
-            if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                value = 1;
-            }
-            if (Input.GetKey(KeyCode.RightArrow))
-            {
-                value = -1;
-            }
+        { 
             Vector3 position = transform.position;
             position += Vector3.right * value * _relativeSpeedRate;
 
