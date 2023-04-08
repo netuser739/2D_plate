@@ -13,5 +13,10 @@ namespace Tool.Analytics.UnityAnalytics
         {
             throw new System.NotImplementedException();
         }
+
+        public void TransactionEvent(string productName, decimal amount, string currency)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
