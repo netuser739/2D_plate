@@ -8,17 +8,24 @@ namespace Ui
     {
         [SerializeField] private Button _buttonStart;
         [SerializeField] private Button _buttonSettings;
+        [SerializeField] private Button _buttonAds;
 
-        public void InitGame(UnityAction startGame) =>
+        public void Init(UnityAction startGame, UnityAction gameSettings)
+        {
             _buttonStart.onClick.AddListener(startGame);
-
-        public void InitSettings(UnityAction gameSettings) =>
             _buttonSettings.onClick.AddListener(gameSettings);
+        }  
+        
+        public void InitAds(UnityAction rewardedAds)
+        {
+            _buttonAds.onClick.AddListener(rewardedAds);
+        }
 
         public void OnDestroy()
         {
             _buttonStart.onClick.RemoveAllListeners();
             _buttonSettings.onClick.RemoveAllListeners();
+            _buttonAds.onClick.RemoveAllListeners();
         }
     }
 }

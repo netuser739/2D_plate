@@ -19,6 +19,12 @@ namespace Tool.Analytics
         public void SendMainMenuOpenedEvent() =>
             SendEvent("MainMenuOpened");
 
+        public void SendGameStartedEvent()
+        {
+            SendEvent("GameStarted");
+            Debug.Log("GameStarted");
+        }
+
         private void SendEvent(string eventName)
         {
             foreach(IAnalyticsService service in _services)

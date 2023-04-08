@@ -14,13 +14,11 @@ namespace Services.Ads.UnityAds
 
         protected readonly string Id;
 
-
         protected UnityAdsPlayer(string id)
         {
             Id = id;
             Advertisement.AddListener(this);
         }
-
 
         public void Play()
         {
