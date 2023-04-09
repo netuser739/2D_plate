@@ -26,5 +26,5 @@ MonoBehaviour:
     <Enabled>k__BackingField: 0
     _androidId: Banner_Android
     _iosId: Banner_iOS
-  <TestMode>k__BackingField: 1
+  <TestMode>k__BackingField: 0
   <EnablePerPlacementMode>k__BackingField: 1

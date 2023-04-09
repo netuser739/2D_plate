@@ -45,9 +45,7 @@ namespace Services.Ads.UnityAds
                 : new StubPlayer("");
 
         private IAdsPlayer CreateRewarded() =>
-            _settings.Rewarded.Enabled
-            ? new RewardedPlayer(_settings.Rewarded.Id)
-            : new StubPlayer("");
+            new StubPlayer("");
 
         private IAdsPlayer CreateBanner() =>
             new StubPlayer("");

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace Tool
 {
@@ -6,7 +6,7 @@ namespace Tool
     {
         private void Awake()
         {
-            if(enabled)
+            if (enabled)
                 DontDestroyOnLoad(gameObject);
         }
     }

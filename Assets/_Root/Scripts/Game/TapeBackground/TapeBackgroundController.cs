@@ -12,7 +12,6 @@ namespace Game.TapeBackground
         private readonly ISubscriptionProperty<float> _rightMove;
 
         private TapeBackgroundView _view;
-        private float dir;
 
 
         public TapeBackgroundController(

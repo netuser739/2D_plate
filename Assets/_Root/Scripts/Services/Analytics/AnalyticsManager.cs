@@ -1,52 +1,23 @@
-﻿using System.Collections.Generic;
-using Tool.Analytics.UnityAnalytics;
 using UnityEngine;
+using Services.Analytics.UnityAnalytics;
 
-namespace Tool.Analytics
+namespace Services.Analytics
 {
     internal class AnalyticsManager : MonoBehaviour
     {
         private IAnalyticsService[] _services;
 
-        private void Awake()
-        {
+
+        private void Awake() =>
             _services = new IAnalyticsService[]
             {
-                new UnityAnalyticsService(),
+                new UnityAnalyticsService()
             };
-        }
-
-        public void SendMainMenuOpenedEvent() =>
-            SendEvent("MainMenuOpened");
-
-        public void SendGameStartedEvent()
-        {
-            SendEvent("GameStarted");
-            Debug.Log("GameStarted");
-        }
-
-        public void TransactionProd2Event()
-        {
-            TransactionEvent("prod_2", 1.2m, "USD");
-            Debug.Log("prod_2, 1.2m, USD");
-        }
 
         private void SendEvent(string eventName)
         {
-            foreach(IAnalyticsService service in _services)
-                service.SendEvent(eventName);
-        }
-
-        private void SendEvent(string eventName, Dictionary<string, object> eventData)
-        {
-            foreach (IAnalyticsService service in _services)
-                service.SendEvent(eventName, eventData);
-        }
-
-        private void TransactionEvent(string eventName, decimal amount, string currency)
-        {
-            foreach(IAnalyticsService service in _services)
-                service.TransactionEvent(eventName, amount, currency);
+            for (int i = 0; i < _services.Length; i++)
+                _services[i].SendEvent(eventName);
         }
     }
 }

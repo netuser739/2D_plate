@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: ProductLibrary
   m_EditorClassIdentifier: 
   <Products>k__BackingField:
-  - <Id>k__BackingField: prod_1
+  - <Id>k__BackingField: product_1
     <ProductType>k__BackingField: 0
-  - <Id>k__BackingField: prod_2
+  - <Id>k__BackingField: product_2
+    <ProductType>k__BackingField: 0
+  - <Id>k__BackingField: product_3
     <ProductType>k__BackingField: 1
-  - <Id>k__BackingField: sub_3
+  - <Id>k__BackingField: subscription_1
     <ProductType>k__BackingField: 2
