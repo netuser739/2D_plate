@@ -9,14 +9,20 @@ namespace Game.Car
         private readonly ResourcePath _viewPath = new ResourcePath("Prefabs/Car");
         private readonly CarView _view;
 
+        private readonly SubscriptionProperty<float> _diff;
+        private readonly ISubscriptionProperty<float> _upMove;
+
         public GameObject ViewGameObject => _view.gameObject;
 
 
-        public CarController()
+        public CarController(SubscriptionProperty<float> upMove)
         {
             _view = LoadView();
+            _diff = new SubscriptionProperty<float>();
+            _upMove = upMove;
+            _view.Init(_diff);
+            _upMove.SubscribeOnChange(Jump);
         }
-
 
         private CarView LoadView()
         {
@@ -26,5 +32,11 @@ namespace Game.Car
 
             return objectView.GetComponent<CarView>();
         }
+
+        protected override void OnDispose() =>
+            _upMove.UnSubscribeOnChange(Jump);
+
+        private void Jump(float value) =>
+            _diff.Value = value;
     }
 }

@@ -80,12 +80,14 @@ namespace Features.Shed
 
             _profilePlayer.CurrentState.Value = GameState.Start;
             Log($"Apply. Current Speed: {_profilePlayer.CurrentCar.Speed}");
+            Log($"Apply. Current Jump: {_profilePlayer.CurrentCar.Jump}");
         }
 
         private void Back()
         {
             _profilePlayer.CurrentState.Value = GameState.Start;
             Log($"Back. Current Speed: {_profilePlayer.CurrentCar.Speed}");
+            Log($"Back. Current Jump: {_profilePlayer.CurrentCar.Jump}");
         }
 
 

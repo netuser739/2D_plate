@@ -9,7 +9,6 @@ namespace Game.TapeBackground
 
         private ISubscriptionProperty<float> _diff;
 
-
         public void Init(ISubscriptionProperty<float> diff)
         {
             _diff = diff;

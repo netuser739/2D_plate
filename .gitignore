@@ -64,3 +64,4 @@ crashlytics-build.properties
 /Assets/_Root/Scripts/Game/GameController.cs
 /Assets/_Root/Scripts/Game/InputLogic/InputGameController.cs
 /Assets/_Root/Scripts/Game/InputLogic/BaseInputView.cs
+/Assets/_Root/Scripts/Game/GameController.cs

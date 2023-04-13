@@ -7,7 +7,6 @@ namespace Game.InputLogic
     {
         [SerializeField] private float _inputMultiplier = 0.01f;
 
-
         private void Start() =>
             UpdateManager.SubscribeToUpdate(Move);
 
@@ -18,12 +17,16 @@ namespace Game.InputLogic
         private void Move()
         {
             float moveValue = Speed * _inputMultiplier * Time.deltaTime;
+            float jumpValue = Jump * _inputMultiplier * Time.deltaTime;
 
             if (Input.GetKey(KeyCode.LeftArrow))
                 OnLeftMove(moveValue);
 
             if (Input.GetKey(KeyCode.RightArrow))
                 OnRightMove(moveValue);
+
+            if(Input.GetKey(KeyCode.UpArrow)) 
+                OnUpMove(jumpValue);
         }
     }
 }
