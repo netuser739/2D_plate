@@ -12,7 +12,6 @@ namespace Game
     {
         private readonly SubscriptionProperty<float> _leftMoveDiff;
         private readonly SubscriptionProperty<float> _rightMoveDiff;
-        private readonly SubscriptionProperty<float> _upMoveDiff;
 
         private readonly CarController _carController;
         private readonly InputGameController _inputGameController;
@@ -24,10 +23,9 @@ namespace Game
         {
             _leftMoveDiff = new SubscriptionProperty<float>();
             _rightMoveDiff = new SubscriptionProperty<float>();
-            _upMoveDiff = new SubscriptionProperty<float>();
 
-            _carController = CreateCarController(_upMoveDiff);
-            _inputGameController = CreateInputGameController(profilePlayer, _leftMoveDiff, _rightMoveDiff, _upMoveDiff);
+            _carController = CreateCarController(profilePlayer);
+            _inputGameController = CreateInputGameController(profilePlayer, _leftMoveDiff, _rightMoveDiff);
             _abilitiesController = CreateAbilitiesController(placeForUi, _carController);
             _tapeBackgroundController = CreateTapeBackground(_leftMoveDiff, _rightMoveDiff);
         }
@@ -42,19 +40,17 @@ namespace Game
         }
 
         private InputGameController CreateInputGameController(ProfilePlayer profilePlayer,
-            SubscriptionProperty<float> leftMoveDiff, SubscriptionProperty<float> rightMoveDiff,
-            SubscriptionProperty<float> upMoveDiff)
+            SubscriptionProperty<float> leftMoveDiff, SubscriptionProperty<float> rightMoveDiff)
         {
-            var inputGameController = new InputGameController(leftMoveDiff, rightMoveDiff, upMoveDiff,
-                profilePlayer.CurrentCar);
+            var inputGameController = new InputGameController(leftMoveDiff, rightMoveDiff, profilePlayer.CurrentCar);
             AddController(inputGameController);
 
             return inputGameController;
         }
 
-        private CarController CreateCarController(SubscriptionProperty<float> upMove)
+        private CarController CreateCarController(ProfilePlayer curentCar)
         {
-            var carController = new CarController(upMove);
+            var carController = new CarController(curentCar.CurrentCar);
             AddController(carController);
 
             return carController;

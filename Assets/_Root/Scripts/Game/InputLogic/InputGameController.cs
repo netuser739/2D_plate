@@ -9,17 +9,14 @@ namespace Game.InputLogic
         private readonly ResourcePath _resourcePath = new ResourcePath("Prefabs/Input/KeyboardMove");
         private readonly BaseInputView _view;
 
-
         public InputGameController(
             SubscriptionProperty<float> leftMove,
             SubscriptionProperty<float> rightMove,
-            SubscriptionProperty<float> upMove,
             CarModel car)
         {
             _view = LoadView();
-            _view.Init(leftMove, rightMove, upMove, car.Speed, car.Jump);
+            _view.Init(leftMove, rightMove, car.Speed);
         }
-
 
         private BaseInputView LoadView()
         {

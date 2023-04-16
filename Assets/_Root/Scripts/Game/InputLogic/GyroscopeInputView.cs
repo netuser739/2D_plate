@@ -11,22 +11,13 @@ namespace Game.InputLogic
         public override void Init(
             SubscriptionProperty<float> leftMove,
             SubscriptionProperty<float> rightMove,
-            SubscriptionProperty<float> upMove,
-            float speed, float jump)
+            float speed)
         {
-            base.Init(leftMove, rightMove,upMove, speed, jump);
+            base.Init(leftMove, rightMove, speed);
             Input.gyro.enabled = true;
         }
 
-
-        private void Start() =>
-            UpdateManager.SubscribeToUpdate(Move);
-
-        private void OnDestroy() =>
-            UpdateManager.UnsubscribeFromUpdate(Move);
-
-
-        private void Move()
+        protected override void Move()
         {
             if (!SystemInfo.supportsGyroscope)
                 return;

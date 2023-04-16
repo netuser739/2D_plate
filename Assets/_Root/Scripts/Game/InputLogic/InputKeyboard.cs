@@ -1,4 +1,3 @@
-using JoostenProductions;
 using UnityEngine;
 
 namespace Game.InputLogic
@@ -7,17 +6,9 @@ namespace Game.InputLogic
     {
         [SerializeField] private float _inputMultiplier = 0.01f;
 
-        private void Start() =>
-            UpdateManager.SubscribeToUpdate(Move);
-
-        private void OnDestroy() =>
-            UpdateManager.UnsubscribeFromUpdate(Move);
-
-
-        private void Move()
+        protected override void Move()
         {
             float moveValue = Speed * _inputMultiplier * Time.deltaTime;
-            float jumpValue = Jump * _inputMultiplier * Time.deltaTime;
 
             if (Input.GetKey(KeyCode.LeftArrow))
                 OnLeftMove(moveValue);
@@ -25,8 +16,6 @@ namespace Game.InputLogic
             if (Input.GetKey(KeyCode.RightArrow))
                 OnRightMove(moveValue);
 
-            if(Input.GetKey(KeyCode.UpArrow)) 
-                OnUpMove(jumpValue);
         }
     }
 }
