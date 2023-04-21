@@ -5,11 +5,17 @@ using Game.Car;
 using Game.InputLogic;
 using Game.TapeBackground;
 using Features.AbilitySystem;
+using Features.AbilitySystem.Abilities;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Game
 {
     internal class GameController : BaseController
     {
+        private readonly ResourcePath _abilitiesViewPath = new ("Prefabs/Ability/AbilitiesView");
+        private readonly ResourcePath _abilitiesDataSourcePath = new ("Configs/Ability/AbilityItemConfigDataSource");
+
         private readonly SubscriptionProperty<float> _leftMoveDiff;
         private readonly SubscriptionProperty<float> _rightMoveDiff;
 
@@ -58,10 +64,34 @@ namespace Game
 
         private AbilitiesController CreateAbilitiesController(Transform placeForUi, IAbilityActivator abilityActivator)
         {
-            var abilitiesController = new AbilitiesController(placeForUi, abilityActivator);
+            IAbilitiesView view = LoadAbilitiesView(placeForUi);
+            IEnumerable<AbilityItemConfig> abilityItemConfigs = LoadAbilityItemConfigs();
+            IAbilitiesRepository repository = CreateAbilitiesRepository(abilityItemConfigs);
+            
+            var abilitiesController = new AbilitiesController(view , repository, abilityItemConfigs, abilityActivator);
             AddController(abilitiesController);
 
             return abilitiesController;
+        }
+
+        private AbilityItemConfig[] LoadAbilityItemConfigs() =>
+            ContentDataSourceLoader.LoadAbilityItemConfigs(_abilitiesDataSourcePath);
+
+        private AbilitiesRepository CreateAbilitiesRepository(IEnumerable<AbilityItemConfig> abilityItemConfigs)
+        {
+            var repository = new AbilitiesRepository(abilityItemConfigs);
+            AddRepository(repository);
+
+            return repository;
+        }
+
+        private AbilitiesView LoadAbilitiesView(Transform placeForUi)
+        {
+            GameObject prefab = ResourcesLoader.LoadPrefab(_abilitiesViewPath);
+            GameObject objectView = UnityEngine.Object.Instantiate(prefab, placeForUi, false);
+            AddGameObject(objectView);
+
+            return objectView.GetComponent<AbilitiesView>();
         }
     }
 }

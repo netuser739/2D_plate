@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6118ce1540d041a4a9adc89d27299e04, type: 3}
   m_Name: Rocket
   m_EditorClassIdentifier: 
-  <Id>k__BackingField: 
-  <Title>k__BackingField: 
+  <Id>k__BackingField: rocket
+  <Title>k__BackingField: Rocket
   <Icon>k__BackingField: {fileID: 21300000, guid: 5be9b4c5270e8eb48ac9e24389566ec1, type: 3}

@@ -6,6 +6,7 @@ using UnityEngine;
 using Features.Inventory;
 using Features.Shed.Upgrade;
 using JetBrains.Annotations;
+using Features.Inventory.Items;
 
 namespace Features.Shed
 {
@@ -15,8 +16,11 @@ namespace Features.Shed
 
     internal class ShedController : BaseController, IShedController
     {
-        private readonly ResourcePath _viewPath = new ResourcePath("Prefabs/Shed/ShedView");
-        private readonly ResourcePath _dataSourcePath = new ResourcePath("Configs/Shed/UpgradeItemConfigDataSource");
+        private readonly ResourcePath _shedViewPath = new ("Prefabs/Shed/ShedView");
+        private readonly ResourcePath _shedDataSourcePath = new ("Configs/Shed/UpgradeItemConfigDataSource");
+
+        private readonly ResourcePath _inventoryViewPath = new("Prefabs/Inventory/InventoryView");
+        private readonly ResourcePath _inventoryDataSourcePath = new("Configs/Inventory/ItemConfigDataSource");
 
         private readonly ShedView _view;
         private readonly ProfilePlayer _profilePlayer;
@@ -36,7 +40,7 @@ namespace Features.Shed
 
             _upgradeHandlersRepository = CreateRepository();
             _inventoryController = CreateInventoryController(placeForUi);
-            _view = LoadView(placeForUi);
+            _view = LoadShedView(placeForUi);
 
             _view.Init(Apply, Back);
         }
@@ -44,7 +48,7 @@ namespace Features.Shed
 
         private UpgradeHandlersRepository CreateRepository()
         {
-            UpgradeItemConfig[] upgradeConfigs = ContentDataSourceLoader.LoadUpgradeItemConfigs(_dataSourcePath);
+            UpgradeItemConfig[] upgradeConfigs = ContentDataSourceLoader.LoadUpgradeItemConfigs(_shedDataSourcePath);
             var repository = new UpgradeHandlersRepository(upgradeConfigs);
             AddRepository(repository);
 
@@ -53,15 +57,36 @@ namespace Features.Shed
 
         private InventoryController CreateInventoryController(Transform placeForUi)
         {
-            var inventoryController = new InventoryController(placeForUi, _profilePlayer.Inventory);
+            IInventoryView view = LoadInventoryView(placeForUi);
+            IItemsRepository repository = CreateInventoryRepository();
+            IInventoryModel inventoryModel = _profilePlayer.Inventory;
+            var inventoryController = new InventoryController(view, repository, inventoryModel);
             AddController(inventoryController);
 
             return inventoryController;
         }
 
-        private ShedView LoadView(Transform placeForUi)
+        private ItemsRepository CreateInventoryRepository()
         {
-            GameObject prefab = ResourcesLoader.LoadPrefab(_viewPath);
+            ItemConfig[] itemConfigs = ContentDataSourceLoader.LoadItemConfigs(_inventoryDataSourcePath);
+            var repository = new ItemsRepository(itemConfigs);
+            AddRepository(repository);
+
+            return repository;
+        }
+
+        private InventoryView LoadInventoryView(Transform placeForUi)
+        {
+            GameObject prefab = ResourcesLoader.LoadPrefab(_inventoryViewPath);
+            GameObject objectView = UnityEngine.Object.Instantiate(prefab, placeForUi);
+            AddGameObject(objectView);
+
+            return objectView.GetComponent<InventoryView>();
+        }
+
+        private ShedView LoadShedView(Transform placeForUi)
+        {
+            GameObject prefab = ResourcesLoader.LoadPrefab(_shedViewPath);
             GameObject objectView = UnityEngine.Object.Instantiate(prefab, placeForUi, false);
             AddGameObject(objectView);
 

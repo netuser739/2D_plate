@@ -12,3 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee7cc367ebb8cb24e8c32a91dbc5321c, type: 3}
   m_Name: StartGameConfig
   m_EditorClassIdentifier: 
+  <SpeedCar>k__BackingField: 10
+  <JumpHeight>k__BackingField: 4
+  <InitialState>k__BackingField: 1
